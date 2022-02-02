@@ -1,0 +1,16 @@
+# Ignore
+#backups
+#bootstrap
+#config
+node_modules
+#storage
+#tests
+vendor
+#public
+#.env
+#.htaccess
+
+
+
+# Allow
+#!/public/assets/css
