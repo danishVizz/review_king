@@ -61,6 +61,9 @@ class User extends Authenticatable
         if (isset($posted_data['role'])) {
             $query = $query->where('role', $posted_data['role']);
         }
+        if (isset($posted_data['slug'])) {
+            $query = $query->where('slug', $posted_data['slug']);
+        }
 
         $query->select('*');
         
@@ -112,6 +115,9 @@ class User extends Authenticatable
         }
         if (isset($posted_data['rating_link'])) {
             $data->rating_link = $posted_data['rating_link'];
+        }
+        if (isset($posted_data['slug'])) {
+            $data->slug = $posted_data['slug'];
         }
         $data->save();
         return $data->id;

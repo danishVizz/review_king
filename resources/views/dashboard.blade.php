@@ -12,7 +12,7 @@
         <section id="dashboard-analytics">
             <div class="row match-height">
                 <!-- Greetings Card starts -->
-                <div class="col-lg-6 col-md-12 col-sm-12">
+                <div class="col-lg-12 col-md-12 col-sm-12">
                     <div class="card card-congratulations">
                         <div class="card-body text-center">
                             <img src="{{ asset('app-assets/images/elements/decore-left.png') }}" class="congratulations-img-left" alt="card-img-left"/>
@@ -23,18 +23,23 @@
                                 </div>
                             </div>
                             <div class="text-center">
-                                <h1 class="mb-1 text-white">Congratulations John,</h1>
+                                {{-- <h1 class="mb-1 text-white">Congratulations {{Auth::user()->name}},</h1> --}}
+                                <h1 class="mb-1 text-white">{{Auth::user()->name}},</h1>
                                 <p class="card-text m-auto w-75">
-                                    You have done <strong>57.6%</strong> more sales today. Check your new badge in your profile.
+                                    Welcome to <strong>Review King</strong> application. Check your new badge in your profile.
                                 </p>
                             </div>
                         </div>
                     </div>
+
+                    @if (Auth::user()->role == 2)
+                        <p class="text-center"><a target="_blank" href="{{ url('generate-qrcode') }}" class="btn btn-primary">GENERATE QR CODE</a></p>
+                        <p class="text-center"><a target="_blank" href="{{ url('generate-whatsapp-qrcode') }}" class="btn btn-primary">GENERATE AND DOWNLOAD QR CODE FOR WHATSAPP</a></p>
+                    @endif
                 </div>
                 <!-- Greetings Card ends -->
 
-                <!-- Subscribers Chart Card starts -->
-                <div class="col-lg-3 col-sm-6 col-12">
+                {{-- <div class="col-lg-3 col-sm-6 col-12">
                     <div class="card">
                         <div class="card-header flex-column align-items-start pb-0">
                             <div class="avatar bg-light-primary p-50 m-0">
@@ -48,9 +53,7 @@
                         <div id="gained-chart"></div>
                     </div>
                 </div>
-                <!-- Subscribers Chart Card ends -->
 
-                <!-- Orders Chart Card starts -->
                 <div class="col-lg-3 col-sm-6 col-12">
                     <div class="card">
                         <div class="card-header flex-column align-items-start pb-0">
@@ -64,12 +67,10 @@
                         </div>
                         <div id="order-chart"></div>
                     </div>
-                </div>
-                <!-- Orders Chart Card ends -->
+                </div> --}}
             </div>
 
-            <div class="row match-height">
-                <!-- Avg Sessions Chart Card starts -->
+            {{-- <div class="row match-height">
                 <div class="col-lg-6 col-12">
                     <div class="card">
                         <div class="card-body">
@@ -129,9 +130,7 @@
                         </div>
                     </div>
                 </div>
-                <!-- Avg Sessions Chart Card ends -->
 
-                <!-- Support Tracker Chart Card starts -->
                 <div class="col-lg-6 col-12">
                     <div class="card">
                         <div class="card-header d-flex justify-content-between pb-0">
@@ -174,8 +173,7 @@
                         </div>
                     </div>
                 </div>
-                <!-- Support Tracker Chart Card ends -->
-            </div>
+            </div> --}}
         </section>
         <!-- Dashboard Analytics end -->
 

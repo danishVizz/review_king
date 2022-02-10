@@ -153,9 +153,12 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Category $category)
+    // public function destroy(Category $category)
+    public function destroy($id)
     {
-        $category->delete();
+        // $category->delete();
+        $data = Category::find($id);
+        $data->delete();
 
         \Session::flash('message', 'Deal deleted successfully!');
         return redirect('/deal');

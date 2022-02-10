@@ -21,12 +21,34 @@ class UserController extends Controller
     }
     public function welcome()
     {
-        return view('login');
+        if(Auth::check()){
+            return redirect('/dashboard');
+        }else{
+            return redirect('/login');
+        }
     }
 
     public function login()
     {
-        return view('login');
+        if(Auth::check()){
+            return redirect('/dashboard');
+        }else{
+            return view('login');
+        }
+    }
+
+    public function register()
+    {
+        if(Auth::check()){
+            return redirect('/dashboard');
+        }else{
+            return view('register');
+        }
+    }
+
+    public function privacy_policy()
+    {
+        return view('privacy_policy');
     }
 
     public function logout()
@@ -77,7 +99,7 @@ class UserController extends Controller
             'email' => 'required|email|unique:users',
             'password' => 'required|min:6',
             'confirm_password' => 'required|required_with:password|same:password',
-            'phone_no' => 'required',
+            'phone_no' => 'required|min:13',
             'rating_link' => 'required',
         );
 
@@ -139,8 +161,10 @@ class UserController extends Controller
    
         $validator = Validator::make($input, [
             'name' => 'required',
-            'phone_no' => 'required',
+            'phone_no' => 'required|min:13',
             'rating_link' => 'required',
+        ],[
+            'phone_no.min' => 'Phone Number must be 10 characters long.',
         ]);
    
         if($validator->fails()){
@@ -246,6 +270,51 @@ class UserController extends Controller
                 return redirect('/login');
             }
 
+        }
+    }
+
+
+    public function edit_profile()
+    {
+        $posted_data = array();
+        $posted_data['id'] = Auth::user()->id;
+        $posted_data['detail'] = true;
+
+        $data = $this->UserObj->getUser($posted_data);
+
+        return view('edit_profile',compact('data'));
+    }
+
+
+    public function update_profile(Request $request)
+    {
+        $input = $request->all();
+   
+        $validator = Validator::make($input, [
+            'name' => 'required',
+            'phone_no' => 'required|min:13',
+            'rating_link' => 'required',
+        ],[
+            'phone_no.min' => 'Phone Number must be 10 characters long.', 
+        ]);
+   
+        if($validator->fails()){
+            return redirect()->back()->withErrors($validator)->withInput();   
+        }else {
+            $posted_data = $request->all();
+            $posted_data['role'] = 2;
+            $posted_data['update_id'] = Auth::user()->id;
+            if((isset($posted_data['password']) && !empty($posted_data['password'])) || (isset($posted_data['confirm_password']) && !empty($posted_data['confirm_password']))){
+                if($posted_data['password'] != $posted_data['confirm_password']){
+                    \Session::flash('error_message', 'Password and Confirm password does not matched!');
+                    return redirect()->back()->withErrors($validator)->withInput();  
+                }
+            }
+
+            $this->UserObj->saveUpdateUser($posted_data);
+
+            \Session::flash('message', 'Update profile successfully!');
+            return redirect('/edit_profile');
         }
     }
 }

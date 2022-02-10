@@ -1,14 +1,14 @@
 # Ignore
-#backups
-#bootstrap
-#config
+backups
+bootstrap
+config
 node_modules
-#storage
-#tests
+storage
+tests
 vendor
-#public
-#.env
-#.htaccess
+public
+.env
+.htaccess
 
 
 

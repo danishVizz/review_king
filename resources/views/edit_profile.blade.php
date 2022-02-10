@@ -1,10 +1,6 @@
 
 
-@if (isset($data->id))
-    @section('title', 'Update Company')
-@else
-    @section('title', 'Add Company')
-@endif
+@section('title', 'Update Profle')
 @extends('layouts.admin')
 
 @section('content')
@@ -19,7 +15,7 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h4 class="card-title">{{ isset($data->id)? 'Update':'Add' }} Company Detail</h4>
+                            <h4 class="card-title">Update Profile</h4>
                         </div>
                         <div class="card-body">
                             @if (Session::has('message'))
@@ -29,15 +25,10 @@
                                 <div class="alert alert-danger"><b>Sorry: </b>{{ Session::get('error_message') }}</div>
                             @endif
 
-                            @if (isset($data->id))
-                                <form class="form" action="{{ route('company.update', $data->id) }}" method="post">
-                                @method('PUT')
-                                
-                            @else
-                                <form class="form" action="{{ route('company.store') }}" method="POST">
-                                
-                            @endif
-                                @csrf
+
+                            <form class="form" action="{{ route('update_profile') }}" method="post">
+                            @method('PUT')
+                            @csrf
                                 <div class="row">
                                     <div class="col-md-6 col-12">
                                         <div class="form-group">
@@ -87,7 +78,7 @@
                                         <div class="form-group">
                                             <label for="phone_no">Phone Number</label>
 
-                                            <input minlength="13" value="{{old('phone_no', isset($data->phone_no)? $data->phone_no: '')}}" type="text" id="phone_no" class="OnlyNumbers form-control @error('phone_no') is-invalid @enderror" placeholder="Enter phone number in digits with country code." name="phone_no">
+                                            <input minlength="13" maxlength="16" value="{{old('phone_no', isset($data->phone_no)? $data->phone_no: '')}}" type="text" id="phone_no" class="OnlyNumbers form-control @error('phone_no') is-invalid @enderror" placeholder="Enter phone number in digits with country code." name="phone_no">
                                             @error('phone_no')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
@@ -108,12 +99,7 @@
                                     </div>
                                     
                                     <div class="col-12">
-                                        <button type="submit" class="btn btn-primary mr-1 waves-effect waves-float waves-light">{{ isset($data->id)? 'Update':'Add' }}</button>
-
-                                        @if (isset($data->id))
-                                        @else
-                                            <button type="reset" class="btn btn-outline-secondary waves-effect">Reset</button>
-                                        @endif
+                                        <button type="submit" class="btn btn-primary mr-1 waves-effect waves-float waves-light">Update</button>
                                     </div>
                                 </div>
                             </form>

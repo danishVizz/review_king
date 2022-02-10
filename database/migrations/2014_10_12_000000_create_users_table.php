@@ -22,6 +22,7 @@ class CreateUsersTable extends Migration
             $table->tinyInteger('role')->default(1)->comment('1=admin, 2=company');
             $table->string('phone_no');
             $table->string('rating_link');
+            $table->string('slug');
             $table->rememberToken();
             $table->timestamps();
         });

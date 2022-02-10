@@ -9,7 +9,7 @@
     <meta name="description" content="Vuexy admin is super flexible, powerful, clean &amp; modern responsive bootstrap 4 admin template with unlimited possibilities.">
     <meta name="keywords" content="admin template, Vuexy admin template, dashboard template, flat admin template, responsive admin template, web app">
     <meta name="author" content="PIXINVENT">
-    <title>Review King - Login</title>
+    <title>Review King - Register</title>
     <link rel="apple-touch-icon" href="{{ asset('app-assets/images/ico/apple-icon-120.png') }}">
     <link rel="shortcut icon" type="image/x-icon" href="{{ asset('app-assets/images/ico/favicon.ico') }}">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500;1,600" rel="stylesheet">
@@ -41,7 +41,6 @@
 <!-- END: Head-->
 
 <!-- BEGIN: Body-->
-
 <body class="vertical-layout vertical-menu-modern blank-page navbar-floating footer-static  " data-open="click" data-menu="vertical-menu-modern" data-col="blank-page">
     <!-- BEGIN: Content-->
     <div class="app-content content ">
@@ -53,7 +52,7 @@
             <div class="content-body">
                 <div class="auth-wrapper auth-v1 px-2">
                     <div class="auth-inner py-2">
-                        <!-- Login v1 -->
+                        <!-- Register v1 -->
                         <div class="card mb-0">
                             <div class="card-body">
                                 <a href="javascript:void(0);" class="brand-logo">
@@ -83,61 +82,44 @@
                                     <h2 class="brand-text text-primary ml-1">Review King</h2>
                                 </a>
 
-                                <h4 class="card-title mb-1">Welcome to Review King! 👋</h4>
-                                <p class="card-text mb-2">Please sign-in to your account and start the working</p>
+                                <h4 class="card-title mb-1">Adventure starts here 🚀</h4>
+                                <p class="card-text mb-2">Make your app management easy and fun!</p>
 
-                                @if (Session::has('message'))
-                                    <div class="alert alert-success"><b>Success: </b>{{ Session::get('message') }}</div>
-                                @endif
-                                @if (Session::has('error_message'))
-                                    <div class="alert alert-danger"><b>Sorry: </b>{{ Session::get('error_message') }}</div>
-                                @endif
-
-                                <form class="auth-login-form mt-2" action="{{ route('accountLogin') }}" method="POST">
-                                    @csrf
+                                <form class="auth-register-form mt-2" action="index.html" method="POST">
                                     <div class="form-group">
-                                        <label for="email" class="form-label">Email</label>
-                                        <input required type="email" class="form-control @error('email') is-invalid @enderror" id="email" name="email" placeholder="john@example.com" aria-describedby="email" tabindex="1" autofocus />
-                                        @error('email')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
+                                        <label for="register-username" class="form-label">Username</label>
+                                        <input type="text" class="form-control" id="register-username" name="register-username" placeholder="johndoe" aria-describedby="register-username" tabindex="1" autofocus />
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="register-email" class="form-label">Email</label>
+                                        <input type="text" class="form-control" id="register-email" name="register-email" placeholder="john@example.com" aria-describedby="register-email" tabindex="2" />
                                     </div>
 
                                     <div class="form-group">
-                                        {{-- <div class="d-flex justify-content-between">
-                                            <label for="password">Password</label>
-                                            <a href="page-auth-forgot-password-v1.html">
-                                                <small>Forgot Password?</small>
-                                            </a>
-                                        </div> --}}
+                                        <label for="register-password" class="form-label">Password</label>
+
                                         <div class="input-group input-group-merge form-password-toggle">
-                                            <input required type="password" class="form-control @error('password') is-invalid @enderror form-control-merge" id="password" name="password" tabindex="2" placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;" aria-describedby="password" />
-                                            @error('password')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                            @enderror
+                                            <input type="password" class="form-control form-control-merge" id="register-password" name="register-password" placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;" aria-describedby="register-password" tabindex="3" />
                                             <div class="input-group-append">
                                                 <span class="input-group-text cursor-pointer"><i data-feather="eye"></i></span>
                                             </div>
                                         </div>
                                     </div>
-                                    {{-- <div class="form-group">
+                                    <div class="form-group">
                                         <div class="custom-control custom-checkbox">
-                                            <input class="custom-control-input" type="checkbox" id="remember-me" tabindex="3" />
-                                            <label class="custom-control-label" for="remember-me"> Remember Me </label>
+                                            <input class="custom-control-input" type="checkbox" id="register-privacy-policy" tabindex="4" />
+                                            <label class="custom-control-label" for="register-privacy-policy">
+                                                I agree to <a href="javascript:void(0);">privacy policy & terms</a>
+                                            </label>
                                         </div>
-                                    </div> --}}
-                                    <button class="btn btn-primary btn-block" tabindex="4">Sign in</button>
-                                    <br><br>
+                                    </div>
+                                    <button class="btn btn-primary btn-block" tabindex="5">Sign up</button>
                                 </form>
 
-                                {{-- <p class="text-center mt-2">
-                                    <span>New on our platform?</span>
-                                    <a href="page-auth-register-v1.html">
-                                        <span>Create an account</span>
+                                <p class="text-center mt-2">
+                                    <span>Already have an account?</span>
+                                    <a href="{{ route('login') }}">
+                                        <span>Sign in instead</span>
                                     </a>
                                 </p>
 
@@ -158,10 +140,10 @@
                                     <a href="javascript:void(0)" class="btn btn-github">
                                         <i data-feather="github"></i>
                                     </a>
-                                </div> --}}
+                                </div>
                             </div>
                         </div>
-                        <!-- /Login v1 -->
+                        <!-- /Register v1 -->
                     </div>
                 </div>
 
@@ -172,20 +154,20 @@
 
 
     <!-- BEGIN: Vendor JS-->
-    <script src="{{ asset('app-assets/vendors/js/vendors.min.js') }}"></script>
+    <script src="../../../app-assets/vendors/js/vendors.min.js"></script>
     <!-- BEGIN Vendor JS-->
 
     <!-- BEGIN: Page Vendor JS-->
-    <script src="{{ asset('app-assets/vendors/js/forms/validation/jquery.validate.min.js') }}"></script>
+    <script src="../../../app-assets/vendors/js/forms/validation/jquery.validate.min.js"></script>
     <!-- END: Page Vendor JS-->
 
     <!-- BEGIN: Theme JS-->
-    <script src="{{ asset('app-assets/js/core/app-menu.js') }}"></script>
-    <script src="{{ asset('app-assets/js/core/app.js') }}"></script>
+    <script src="../../../app-assets/js/core/app-menu.js"></script>
+    <script src="../../../app-assets/js/core/app.js"></script>
     <!-- END: Theme JS-->
 
     <!-- BEGIN: Page JS-->
-    <script src="{{ asset('app-assets/js/scripts/pages/page-auth-login.js') }}"></script>
+    <script src="../../../app-assets/js/scripts/pages/page-auth-register.js"></script>
     <!-- END: Page JS-->
 
     <script>

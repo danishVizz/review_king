@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\QrCodeController;
+use App\Http\Controllers\CustomerOrderController;
 
 
 /*
@@ -19,14 +20,14 @@ use App\Http\Controllers\QrCodeController;
 
 Route::get('/clear-cache', function() {
     Artisan::call('cache:clear');
-    Artisan::call('optimize');
     Artisan::call('route:cache');
     Artisan::call('route:clear');
     Artisan::call('view:clear');
-    Artisan::call('config:cache');
+    // Artisan::call('optimize');
+    // Artisan::call('config:cache');
     return '<h1>Cache facade value cleared</h1>';
 });
-
+ 
 Route::get('/schedule-run', function() {
     Artisan::call("schedule:run");
     return '<h1>schedule run activated</h1>';
@@ -67,6 +68,7 @@ Route::get('/queue-work', function() {
 
 Auth::routes();
 Route::get('/', [UserController::class, 'welcome']);
+// Route::get('/register', [UserController::class, 'register'])->name('register');
 Route::get('/login', [UserController::class, 'login'])->name('login');
 Route::get('/logout', [UserController::class, 'logout']);
 
@@ -75,11 +77,29 @@ Route::get('/forgot-password', [UserController::class, 'forgotPassword'])->name(
 Route::post('/resetPassword', [UserController::class, 'resetPassword'])->name('resetPassword');
 
 
+Route::post('/renew_stampcard', [CustomerOrderController::class, 'renew_stampcard'])->middleware('auth')->name('renew_stampcard');
+Route::get('/customer_orders', [CustomerOrderController::class, 'customer_orders'])->middleware('auth');
+Route::post('/customer_orders', [CustomerOrderController::class, 'customer_orders'])->middleware('auth')->name('customer_orders_filter');
+
+Route::get('/old_customer_orders', [CustomerOrderController::class, 'old_customer_orders'])->middleware('auth');
+Route::post('/old_customer_orders', [CustomerOrderController::class, 'old_customer_orders'])->middleware('auth')->name('old_customer_orders_filter');
+
+Route::get('/stampcard/{slug}', [CustomerOrderController::class, 'stampcard']);
+Route::post('/ConfirmOrder', [CustomerOrderController::class, 'ConfirmOrder'])->name('ConfirmOrder');
+Route::get('/view_stampcard', [CustomerOrderController::class, 'view_stampcard']);
+Route::post('/check_view_stampcard', [CustomerOrderController::class, 'check_view_stampcard'])->name('check_view_stampcard');
+Route::get('/scan-qrcode/{slug}', [QrCodeController::class, 'ScanQrcode']);
+
+
+Route::get('/privacy_policy', [UserController::class, 'privacy_policy']);
 
 
 Route::middleware(['auth'])->group(function () {
-    Route::get('/generate-qrcode', [QrCodeController::class, 'index']);
+    Route::get('/generate-qrcode', [QrCodeController::class, 'GenerateQrcode']);
+    Route::get('/generate-whatsapp-qrcode/{id?}', [QrCodeController::class, 'GenerateQrcodewhatsapp']);
     Route::get('/dashboard', [UserController::class, 'Dashboard']);
+    Route::get('/edit_profile', [UserController::class, 'edit_profile']);
+    Route::put('/update_profile', [UserController::class, 'update_profile'])->name('update_profile');
     Route::get('/get_category_deleted_record', [CategoryController::class, 'GetCategoryDeletedRecord']);
     Route::get('/restore_category_deleted_record', [CategoryController::class, 'RestoreCategoryDeletedRecord']);
     Route::get('/force_delete_category_record', [CategoryController::class, 'ForceDeleteCategoryRecord']);

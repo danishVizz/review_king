@@ -68,6 +68,14 @@
     <nav class="header-navbar navbar navbar-expand-lg align-items-center floating-nav navbar-light navbar-shadow">
         <div class="navbar-container d-flex content">
             <div class="bookmark-wrapper d-flex align-items-center">
+                <ul class="nav navbar-nav d-xl-none">
+                    <li class="nav-item"><a class="nav-link menu-toggle" href="javascript:void(0);"><i class="ficon"
+                                                                                                       data-feather="menu"></i></a>
+                    </li>
+                </ul>
+            </div>
+            <div class="bookmark-wrapper d-flex align-items-center">
+                <strong style="font-size: 20px;">@yield('title')</strong>
             </div>
             <ul class="nav navbar-nav align-items-center ml-auto">
                 <li class="nav-item d-none d-lg-block"><a class="nav-link nav-link-style"><i class="ficon" data-feather="moon"></i></a></li>
@@ -77,6 +85,7 @@
                         <div class="user-nav d-sm-flex d-none"><span class="user-name font-weight-bolder">{{ Auth::user()->name }}</span><span class="user-status">{{ Auth::user()->role == 1? 'Admin':'Company' }}</span></div><span class="avatar"><img class="round" src="{{ asset('app-assets/images/portrait/small/avatar-s-11.jpg') }}" alt="avatar" height="40" width="40"><span class="avatar-status-online"></span></span>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown-user">
+                        <a class="dropdown-item" href="{{ url('edit_profile') }}"><i class="mr-50" data-feather="edit"></i> Edit Profile</a>
                         <a class="dropdown-item" href="{{ url('logout') }}"><i class="mr-50" data-feather="power"></i> Logout</a>
                     </div>
                 </li>
@@ -90,7 +99,7 @@
     <div class="main-menu menu-fixed menu-light menu-accordion menu-shadow" data-scroll-to-active="true">
         <div class="navbar-header">
             <ul class="nav navbar-nav flex-row">
-                <li class="nav-item mr-auto"><a class="navbar-brand" href="../../../html/ltr/vertical-menu-template/index.html"><span class="brand-logo">
+                <li class="nav-item mr-auto"><a class="navbar-brand" href="{{ url('dashboard') }}"><span class="brand-logo">
                             <svg viewbox="0 0 139 95" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" height="24">
                                 <defs>
                                     <lineargradient id="linearGradient-1" x1="100%" y1="10.5120544%" x2="50%" y2="89.4879456%">
@@ -127,16 +136,8 @@
                 
                 <li class=" navigation-header"><span data-i18n="Apps &amp; Pages">Apps &amp; Pages</span><i data-feather="more-horizontal"></i>
                 </li>
-                <li class=" nav-item"><a class="d-flex align-items-center" href="#"><i data-feather="file-text"></i><span class="menu-title text-truncate" data-i18n="Gift Order">Gift Order</span></a>
-                    <ul class="menu-content">
-                        <li class="{{ Request::path() == 'deal' ? 'active' : '' }}"><a class="d-flex align-items-center" href="{{ url('deal') }}"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="List">List</span></a>
-                        </li>
-                        <li class="{{ Request::path() == 'deal/create' ? 'active' : '' }}"><a class="d-flex align-items-center" href="{{ url('deal/create') }}"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Add">Add</span></a>
-                        </li>
-                    </ul>
-                </li>
                 @if (Auth::user()->role == 1)
-                    <li class=" nav-item"><a class="d-flex align-items-center" href="#"><i data-feather="file-text"></i><span class="menu-title text-truncate" data-i18n="Company">Company</span></a>
+                    <li class=" nav-item"><a class="d-flex align-items-center" href="#"><i data-feather="user"></i><span class="menu-title text-truncate" data-i18n="Company">Company</span></a>
                         <ul class="menu-content">
                             <li class="{{ Request::path() == 'company' ? 'active' : '' }}"><a class="d-flex align-items-center" href="{{ url('company') }}"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="List">List</span></a>
                             </li>
@@ -145,6 +146,27 @@
                         </ul>
                     </li>
                 @endif
+                <li class=" nav-item"><a class="d-flex align-items-center" href="#"><i data-feather="briefcase"></i><span class="menu-title text-truncate" data-i18n="Gift Order">Gift Order</span></a>
+                    <ul class="menu-content">
+                        <li class="{{ Request::path() == 'deal' ? 'active' : '' }}"><a class="d-flex align-items-center" href="{{ url('deal') }}"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="List">List</span></a>
+                        </li>
+                        <li class="{{ Request::path() == 'deal/create' ? 'active' : '' }}"><a class="d-flex align-items-center" href="{{ url('deal/create') }}"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Add">Add</span></a>
+                        </li>
+                    </ul>
+                </li>
+
+
+                <li class=" nav-item"><a class="d-flex align-items-center" href="#"><i data-feather="shopping-cart"></i><span class="menu-title text-truncate" data-i18n="Customer Orders">Customer Orders</span></a>
+                    <ul class="menu-content">
+                        <li class="{{ Request::path() == 'customer_orders' ? 'active' : '' }}"><a class="d-flex align-items-center" href="{{ url('customer_orders') }}"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="New Orders">New Orders</span></a>
+                        </li>
+                        <li class="{{ Request::path() == 'old_customer_orders' ? 'active' : '' }}"><a class="d-flex align-items-center" href="{{ url('old_customer_orders') }}"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Old Orders">Old Orders</span></a>
+                        </li>
+                    </ul>
+                </li>
+
+                {{-- <li class="{{ Request::path() == 'customer_orders' ? 'active' : '' }} nav-item"><a class="d-flex align-items-center" href="{{ url('customer_orders') }}"><i data-feather="shopping-cart"></i><span class="menu-title text-truncate" data-i18n="Customer Orders">Customer Orders</span></a> --}}
+                
             </ul>
         </div>
     </div>
@@ -249,6 +271,87 @@
             // console.log('href:'+href);
             
         });
+
+
+        $(document).on('click', '.renew_stampcard', function(event) {
+            let user_id = $(this).attr('data-user-id');
+            let phone_number = $(this).attr('data-phone-number');
+            
+            
+            if(confirm("Are you sure you want to renew stampcard?")){
+                $(this).closest("tr").remove();
+                $.ajax({
+                    url: "{{ route('renew_stampcard') }}",
+                    data: {
+                        "_token": "{{ csrf_token() }}",
+                        user_id: user_id,
+                        phone_number: phone_number,
+                    },
+                    method: 'post',
+                    dataType: 'json',
+                    success: function(data){
+                        // console.log(data);
+                        alert('Stampcard renewed successfully!');
+                        // location.reload();
+                    },
+                    error: function (e) {        
+                    }
+
+                });
+            }
+            
+        });
+
+        // $(document).on('change', '#phone_no', function(event) {
+        //     var inputtxt = $(this).val();
+        //     // var phoneno = /^\+?([0-9]{2})\)?[-. ]?([0-9]{4})[-. ]?([0-9]{4})$/;
+        //     var phoneno = /^\+?([0-9]{2})\)?[-. ]?([0-9]{4})[-. ]?([0-9]{4})$/;
+        //     // var phoneno = /\+[0-9]{2}+[0-9]{10}/s;
+        //     if(inputtxt.match(phoneno)){
+        //         return true;
+        //     }else{
+        //         alert('Phone number format is in valid. Phone number format should be like this "+XX-XXXX-XXXX"');
+        //         return false;
+        //     }
+        // });
+
+
+	// function addHyphen (element) {
+    // 	let ele = document.getElementById(element.id);
+    //     ele = ele.value.split('-').join('');    // Remove dash (-) if mistakenly entered.
+
+    //     let finalVal = ele.match(/.{1,3}/g).join('-');
+    //     document.getElementById(element.id).value = finalVal;
+    // }
+
+    $('#phone_no, #phone_number').on('keyup', function(){
+        if (this.value.indexOf('-') === -1) {
+            if (this.value.indexOf('+') === -1) {
+                this.value = '+' + this.value.replace(/(\d{2})\-?(\d{4})\-?(\d{4})/,'$1-$2-$3');
+            }else{
+                this.value = this.value.replace(/(\d{2})\-?(\d{4})\-?(\d{4})/,'$1-$2-$3');
+            }
+        }
+    });
+
+    $(".OnlyNumbers").keydown(function (event) {
+            if (!(event.keyCode == 8                                // backspace
+                || event.keyCode == 9                               // tab
+                || event.keyCode == 17                              // ctrl
+                || event.keyCode == 46                              // delete
+                || (event.keyCode >= 35 && event.keyCode <= 40)     // arrow keys/home/end
+                || (event.keyCode >= 48 && event.keyCode <= 57)     // numbers on keyboard
+                || (event.keyCode >= 96 && event.keyCode <= 105)    // number on keypad
+                || (event.keyCode == 65 && prevKey == 17 && prevControl == event.currentTarget.id))          // ctrl + a, on same control
+            ) {
+                event.preventDefault();     // Prevent character input
+            }
+            else {
+                prevKey = event.keyCode;
+                prevControl = event.currentTarget.id;
+            }
+        });
+
     </script>
 </body>
 <!-- END: Body-->

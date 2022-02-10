@@ -59,9 +59,9 @@ return [
     // 'asset_url' => env('ASSET_URL', null),
 
 
-    'url' => env('APP_ENV')=='local'? 'http://localhost:8000':'https://example.com/public/',
+    'url' => env('APP_ENV')=='local'? 'http://localhost:8000':'https://members.financemanagertraining.com/review_king/public/',
     
-    'asset_url' => env('APP_ENV')=='local'? '':'https://example.com.com/public/',
+    'asset_url' => env('APP_ENV')=='local'? '':'https://members.financemanagertraining.com/review_king/public/',
     /*
     |--------------------------------------------------------------------------
     | Application Timezone
